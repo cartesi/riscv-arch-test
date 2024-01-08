@@ -1,0 +1,16 @@
+
+CFLAGS = -march=rv64i -mabi=lp64 -g0 -Wl,--gc-sections -O0 -ffreestanding -nostartfiles \
+   -mcmodel=medany -static -fvisibility=hidden \
+	-I$(MACHINE_EMULATOR_SRC_DIR)
+
+# linker script used by the test suite Makefile to build the tested riscv target
+TARGET_LINK_LD = link.ld
+
+all: $(TARGET_LINK_LD)
+
+%.ld: %.ld.in
+	@$(TOOLCHAIN_PREFIX)gcc -o $@.tmp -x c $(CFLAGS) -E  $^
+	@grep -v '^#' $@.tmp > $@
+
+clean:
+	@rm -f *.elf *.bin *.tmp *.ld
