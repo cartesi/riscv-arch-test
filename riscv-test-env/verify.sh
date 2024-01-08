@@ -5,7 +5,7 @@ FAIL=0
 RUN=0
 
 for ref in ${SUITEDIR}/references/*.reference_output;
-do 
+do
     base=$(basename ${ref})
     stub=${base//".reference_output"/}
 
@@ -18,18 +18,18 @@ do
     dif=${WORK}/rv${XLEN}i_m/${RISCV_DEVICE}/${stub}.diff
 
     RUN=$((${RUN} + 1))
-    
+
     #
     # Ensure both files exist
     #
-    if [ -f ${ref} ] && [ -f ${sig} ]; then 
+    if [ -f ${ref} ] && [ -f ${sig} ]; then
         echo -n "Check $(printf %-24s ${stub}) "
     else
         echo -e  "Check $(printf %-24s ${stub}) \e[33m ... IGNORE \e[39m"
         continue
     fi
-    #diff --ignore-case --strip-trailing-cr ${ref} ${sig} &> /dev/null
-    diff --ignore-case --ignore-trailing-space --strip-trailing-cr <(grep -o '^[^#]*' ${ref}) ${sig} &> /dev/null
+    diff --ignore-case --strip-trailing-cr ${ref} ${sig} &> /dev/null
+    #diff --ignore-case --ignore-trailing-space --strip-trailing-cr <(grep -o '^[^#]*' ${ref}) ${sig} &> /dev/null
     if [ $? == 0 ]
     then
         echo -e "\e[32m ... OK \e[39m"
@@ -41,7 +41,7 @@ do
 done
 
 # warn on missing reverse reference
-for sig in ${WORK}/rv${XLEN}i_m/${RISCV_DEVICE}/*.signature.output; 
+for sig in ${WORK}/rv${XLEN}i_m/${RISCV_DEVICE}/*.signature.output;
 do
     base=$(basename ${sig})
     stub=${base//".signature.output"/}
