@@ -35,9 +35,8 @@
 //RV_COMPLIANCE_HALT
 
 #define RVMODEL_HALT                                                  \
-        li  t0, UARCH_HALT_FLAG_SHADOW_ADDR_DEF;                      \
-        li  t1, UARCH_HALT_FLAG_HALT_VALUE_DEF;                       \
-        sd t1, 0(t0)                                                  \
+        li  a7, UARCH_ECALL_FN_HALT_DEF;                              \
+        ecall;                                                        \
 
 #define RVMODEL_BOOT
 
