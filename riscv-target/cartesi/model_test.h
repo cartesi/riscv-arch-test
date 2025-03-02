@@ -17,7 +17,7 @@
 #ifndef MODEL_TEST_H
 #define MODEL_TEST_H
 
-#include <pma-defines.h>
+#include <pmas-defines.h>
 #include <uarch-defines.h>
 
 #if XLEN == 64
